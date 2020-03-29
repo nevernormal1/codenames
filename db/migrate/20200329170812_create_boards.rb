@@ -7,6 +7,7 @@ class CreateBoards < ActiveRecord::Migration[6.0]
       t.integer :assassin
       t.text :blue
       t.text :red
+      t.integer :turn
 
       t.timestamps
     end

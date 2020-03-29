@@ -1,4 +1,7 @@
 <main>
+  <div id="board-header">
+    <h1><%= @board.turn.capitalize %>'s Turn</h1>
+  </div>
   <div id="board">
     <% @board.words.each_with_index do |word, index| %>
       <div class="word-container <%= word_container_class(@board, word, index) if @giver %>">

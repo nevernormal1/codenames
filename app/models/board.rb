@@ -7,6 +7,8 @@ class Board < ApplicationRecord
   serialize :blue
   serialize :red
 
+  enum turn: [:blue, :red]
+
   private
   def generate_link_tokens
     self.giver_link_token = SecureRandom.hex(3)
@@ -26,9 +28,11 @@ class Board < ApplicationRecord
     if rand < 0.5
       self.blue = extra
       self.red = less
+      self.turn = :blue
     else
       self.red = extra
       self.blue = less
+      self.turn = :red
     end
   end
 end

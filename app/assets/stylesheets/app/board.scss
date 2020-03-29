@@ -1,3 +1,7 @@
+#board-header {
+  color: #555;
+  text-align: center;
+}
 #board {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
