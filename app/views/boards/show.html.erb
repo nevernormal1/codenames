@@ -8,4 +8,17 @@
       </div>
     <% end %>
   </div>
+
+  <div class="board-links">
+    <% if @giver %>
+      <div class="clue-giver">
+        <p>Give this link to clue <strong>givers</strong>:</p>
+        <p><%= link_to board_url(id: @board.giver_link_token) %></p>
+      </div>
+    <% end %>
+    <div class="clue-guesser">
+      <p>Give this link to clue <strong>guessers</strong>:</p>
+      <p><%= link_to board_url(id: @board.guesser_link_token) %></p>
+    </div>
+  </div>
 </main>

@@ -1,11 +1,13 @@
 class CreateBoards < ActiveRecord::Migration[6.0]
   def change
     create_table :boards do |t|
-      t.string :link_token
+      t.string :giver_link_token
+      t.string :guesser_link_token
       t.text :words
       t.timestamps
     end
 
-    add_index :boards, :link_token, unique: true
+    add_index :boards, :giver_link_token, unique: true
+    add_index :boards, :guesser_link_token, unique: true
   end
 end

@@ -16,11 +16,13 @@ ActiveRecord::Schema.define(version: 2020_03_29_170812) do
   enable_extension "plpgsql"
 
   create_table "boards", force: :cascade do |t|
-    t.string "link_token"
+    t.string "giver_link_token"
+    t.string "guesser_link_token"
     t.text "words"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["link_token"], name: "index_boards_on_link_token", unique: true
+    t.index ["giver_link_token"], name: "index_boards_on_giver_link_token", unique: true
+    t.index ["guesser_link_token"], name: "index_boards_on_guesser_link_token", unique: true
   end
 
   create_table "words", force: :cascade do |t|

@@ -1,6 +1,14 @@
 class BoardsController < ApplicationController
   def show
-    @board = Board.find(params[:id])
+    @board = Board.find_by(
+      giver_link_token: params[:id]
+    ) || Board.find_by(
+      guesser_link_token: params[:id]
+    )
+
+    raise ActiveRecord::RecordNotFound unless @board
+
+    @giver = params[:id] == @board.giver_link_token
   end
 
   def create
@@ -13,6 +21,6 @@ class BoardsController < ApplicationController
       retry if (retries += 1) < 3
     end
 
-    redirect_to board_path(board)
+    redirect_to board_path(id: board.giver_link_token)
   end
 end
