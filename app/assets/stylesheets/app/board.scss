@@ -1,3 +1,6 @@
+$blue: #66f;
+$red: #f66;
+
 #board-header {
   color: #555;
   text-align: center;
@@ -5,7 +8,20 @@
   input[type="submit"] {
     padding: 4px;
   }
+
+  &.blue {
+    h1 {
+      color: $blue;
+    }
+  }
+
+  &.red {
+    h1 {
+      color: $red;
+    }
+  }
 }
+
 #board {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -21,11 +37,11 @@
     justify-content: center;
 
     &.red {
-      background: #f66;
+      background: $red;
     }
 
     &.blue {
-      background: #66f;
+      background: $blue;
     }
 
     &.assassin {
@@ -48,4 +64,16 @@
   padding: 2em 2em;
   display: flex;
   justify-content: space-between;
+}
+
+#clues {
+  .blue {
+    border-left: 3px solid $blue;
+    padding-left: 2px;
+  }
+
+  .red {
+    padding-left: 2px;
+    border-left: 3px solid $red;
+  }
 }

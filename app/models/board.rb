@@ -9,6 +9,19 @@ class Board < ApplicationRecord
 
   enum turn: [:blue, :red]
 
+  has_many :clues
+  has_many :recent_clues, -> { order(id: :desc).limit(10) }, class_name: "Clue"
+
+  def change_turns!
+    if turn == "blue"
+      self.turn = :red
+    else
+      self.turn = :blue
+    end
+
+    save!
+  end
+
   private
   def generate_link_tokens
     self.giver_link_token = SecureRandom.hex(3)

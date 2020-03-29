@@ -1,8 +1,9 @@
 <main>
-  <div id="board-header">
+  <div id="board-header" class="<%= @board.turn %>">
     <h1><%= @board.turn.capitalize %>'s Turn</h1>
     <% if @giver %>
       <%= form_for @clue do |f| %>
+        <%= hidden_field :board, :giver_link_token %>
         <%= f.hidden_field :turn, value: Board.turns[@board.turn] %>
         <%= f.label :clue %>
         <%= f.text_field :clue %>
@@ -29,6 +30,12 @@
         <p><%= link_to board_url(id: @board.giver_link_token) %></p>
       </div>
     <% end %>
+    <div id="clues">
+      <p>Recent clues:</p>
+      <% @clues.each do |clue| %>
+        <p class="<%= Board.turns.key(clue.turn) %>"><%= clue.clue %>: <%= clue.number %></p>
+      <% end %>
+    </div>
     <div class="clue-guesser">
       <p>Give this link to clue <strong>guessers</strong>:</p>
       <p><%= link_to board_url(id: @board.guesser_link_token) %></p>
