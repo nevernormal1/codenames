@@ -1,3 +1,9 @@
 <main>
-  <p>Here's your board</p>
+  <div id="board">
+    <% @board.words.each do |word| %>
+      <div>
+        <%= word %>
+      </div>
+    <% end %>
+  </div>
 </main>
