@@ -13,7 +13,7 @@
               <%= hidden_field :board, :guesser_link_token %>
               <%= f.hidden_field :turn, value: Board.turns[@board.turn] %>
               <%= f.hidden_field :guess %>
-              <%= f.submit "Pass" %>
+              <%= f.submit "End turn" %>
             <% end %>
           </div>
         <% end %>
@@ -90,6 +90,14 @@
       Array.prototype.forEach.call(containers, (container) => {
         container.addEventListener("click", chooseWord);
       });
+
+      var reloadBoard = function() {
+        location.reload();
+      };
+
+      <% if (@giver && @board.guessing?) || (!@giver && !@board.guessing?) %>
+        setTimeout(reloadBoard, 3000);
+      <% end %>
     });
   </script>
 <% end %>

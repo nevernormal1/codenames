@@ -5,7 +5,7 @@ class GuessesController < ApplicationController
       guesser_link_token: link_token
     )
 
-    guess = @board.guesses.build(guess_params)
+    guess = Guess.new(guess_params.merge(board_id: @board.id))
     if guess.guess.blank?
       @board.change_turns!
     else
