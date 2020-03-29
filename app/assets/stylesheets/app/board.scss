@@ -1,5 +1,6 @@
 $blue: #66f;
 $red: #f66;
+$assassin: #111;
 
 #board-header {
   color: #555;
@@ -49,7 +50,7 @@ $red: #f66;
     }
 
     &.assassin {
-      background: #111;
+      background: $assassin;
     }
 
     .word {
@@ -60,6 +61,24 @@ $red: #f66;
       color: #555;
       text-transform: uppercase;
       text-align: center;
+    }
+
+    &.guessed.blue {
+      .word {
+        background: $blue;
+        color: $blue;
+      }
+    }
+    &.guessed.red {
+      .word {
+        background: $red;
+        color: $red;
+      }
+    }
+    &.guessed.assassin {
+      .word {
+        background: $assassin;
+      }
     }
   }
 
