@@ -9,4 +9,10 @@ class Guess < ApplicationRecord
       board.blue.include?(index)
     end
   end
+
+  def assassin?
+    index = board.words.index(guess)
+
+    board.assassin == index
+  end
 end

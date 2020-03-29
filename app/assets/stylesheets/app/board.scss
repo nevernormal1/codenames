@@ -81,9 +81,10 @@ $neutral: #e3ddbf;
           color: $red;
         }
       }
-      &assassin {
+      &.assassin {
         .word {
           background: $assassin;
+          color: $assassin;
         }
       }
     }

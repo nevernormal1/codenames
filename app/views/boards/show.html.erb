@@ -1,39 +1,43 @@
 <main>
   <div id="board-header" class="<%= @board.turn %>">
-    <h1><%= @board.turn.capitalize %>'s Turn</h1>
-    <% if @board.guessing? %>
-      <div id="current-clue">
-        <h3><%= @last_clue.clue %>: <%= @last_clue.number %></h3>
-        <% if @giver %>
-          <p>Your team is guessing</p>
-        <% else %>
-          <div>
-            Guess by clicking a card or
-            <%= form_for @guess do |f| %>
-              <%= hidden_field :board, :guesser_link_token %>
-              <%= f.hidden_field :turn, value: Board.turns[@board.turn] %>
-              <%= f.hidden_field :guess %>
-              <%= f.submit "End turn" %>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+    <% if @board.game_over? %>
+      <h1>Game Over</h1>
     <% else %>
-      <% if @giver %>
-        <%= form_for @clue do |f| %>
-          <%= hidden_field :board, :giver_link_token %>
-          <%= f.hidden_field :turn, value: Board.turns[@board.turn] %>
-          <%= f.label :clue %>
-          <%= f.text_field :clue %>
-          <%= f.label :number %>
-          <%= f.text_field :number %>
-          <%= f.submit "Send Clue" %>
-        <% end %>
+      <h1><%= @board.turn.capitalize %>'s Turn</h1>
+      <% if @board.guessing? %>
+        <div id="current-clue">
+          <h3><%= @last_clue.clue %>: <%= @last_clue.number %></h3>
+          <% if @giver %>
+            <p>Your team is guessing</p>
+          <% else %>
+            <div>
+              Guess by clicking a card or
+              <%= form_for @guess do |f| %>
+                <%= hidden_field :board, :guesser_link_token %>
+                <%= f.hidden_field :turn, value: Board.turns[@board.turn] %>
+                <%= f.hidden_field :guess %>
+                <%= f.submit "End turn" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       <% else %>
-        <p>Waiting for clue...</p>
+        <% if @giver %>
+          <%= form_for @clue do |f| %>
+            <%= hidden_field :board, :giver_link_token %>
+            <%= f.hidden_field :turn, value: Board.turns[@board.turn] %>
+            <%= f.label :clue %>
+            <%= f.text_field :clue %>
+            <%= f.label :number %>
+            <%= f.text_field :number %>
+            <%= f.submit "Send Clue" %>
+          <% end %>
+        <% else %>
+          <p>Waiting for clue...</p>
+        <% end %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
   <div id="board" class="<%= @board.turn %> <%= @giver ? "giver" : "guesser" %>">
     <% @board.words.each_with_index do |word, index| %>
       <div class="word-container <%= word_container_guessed_class(@board, word, index) %> <%= word_container_giver_class(@board, word, index) if @giver %>" data-word="<%= word %>">
@@ -95,8 +99,10 @@
         location.reload();
       };
 
-      <% if (@giver && @board.guessing?) || (!@giver && !@board.guessing?) %>
-        setTimeout(reloadBoard, 3000);
+      <% unless @board.game_over? %>
+        <% if (@giver && @board.guessing?) || (!@giver && !@board.guessing?) %>
+          setTimeout(reloadBoard, 3000);
+        <% end %>
       <% end %>
     });
   </script>

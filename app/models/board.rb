@@ -30,7 +30,14 @@ class Board < ApplicationRecord
     last_clue && turn == self.class.turns.key(last_clue.turn)
   end
 
+  def game_over?
+    last_guess.assassin? || all_clues_guessed?
+  end
+
   private
+  def all_clues_guessed?
+  end
+
   def generate_link_tokens
     self.giver_link_token = SecureRandom.hex(3)
     self.guesser_link_token = SecureRandom.alphanumeric(6)
