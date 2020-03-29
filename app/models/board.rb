@@ -27,7 +27,7 @@ class Board < ApplicationRecord
   end
 
   def guessing?
-    turn == self.class.turns.key(last_clue.turn)
+    last_clue && turn == self.class.turns.key(last_clue.turn)
   end
 
   private

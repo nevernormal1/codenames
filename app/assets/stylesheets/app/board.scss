@@ -1,6 +1,7 @@
 $blue: #66f;
 $red: #f66;
 $assassin: #111;
+$neutral: #e3ddbf;
 
 #board-header {
   color: #555;
@@ -36,7 +37,7 @@ $assassin: #111;
   .word-container {
     padding: 20px 10px;
     border-radius: 4px;
-    background: #e3ddbf;
+    background: $neutral;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,21 +64,27 @@ $assassin: #111;
       text-align: center;
     }
 
-    &.guessed.blue {
+    &.guessed {
       .word {
-        background: $blue;
-        color: $blue;
+        background: $neutral;
+        color: $neutral;
       }
-    }
-    &.guessed.red {
-      .word {
-        background: $red;
-        color: $red;
+      &.blue {
+        .word {
+          background: $blue;
+          color: $blue;
+        }
       }
-    }
-    &.guessed.assassin {
-      .word {
-        background: $assassin;
+      &.red {
+        .word {
+          background: $red;
+          color: $red;
+        }
+      }
+      &assassin {
+        .word {
+          background: $assassin;
+        }
       }
     }
   }

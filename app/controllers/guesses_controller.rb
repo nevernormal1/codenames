@@ -5,7 +5,17 @@ class GuessesController < ApplicationController
       guesser_link_token: link_token
     )
 
-    @board.guesses.create!(guess_params)
+    guess = @board.guesses.build(guess_params)
+    if guess.guess.blank?
+      @board.change_turns!
+    else
+      Board.transaction do
+        guess.save!
+        if !guess.correct?
+          @board.change_turns!
+        end
+      end
+    end
 
     redirect_to board_path(id: link_token)
   end

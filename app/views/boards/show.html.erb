@@ -45,12 +45,6 @@
   </div>
 
   <div class="board-links">
-    <% if @giver %>
-      <div class="clue-giver">
-        <p>Give this link to clue <strong>givers</strong>:</p>
-        <p><%= link_to board_url(id: @board.giver_link_token), board_url(id: @board.giver_link_token) %></p>
-      </div>
-    <% end %>
     <div id="clues">
       <p>Recent clues:</p>
       <% @clues.each do |clue| %>
@@ -63,9 +57,17 @@
         <p class="<%= Board.turns.key(guess.turn) %>"><%= guess.guess %>: <%= guess.correct? ? "Correct" : "Incorrect" %></p>
       <% end %>
     </div>
-    <div class="clue-guesser">
-      <p>Give this link to clue <strong>guessers</strong>:</p>
-      <p><%= link_to board_url(id: @board.guesser_link_token), board_url(id: @board.guesser_link_token) %></p>
+    <div>
+      <% if @giver %>
+        <div class="clue-giver">
+          <p>Give this link to clue <strong>givers</strong>:</p>
+          <p><%= link_to board_url(id: @board.giver_link_token), board_url(id: @board.giver_link_token) %></p>
+        </div>
+      <% end %>
+      <div class="clue-guesser">
+        <p>Give this link to clue <strong>guessers</strong>:</p>
+        <p><%= link_to board_url(id: @board.guesser_link_token), board_url(id: @board.guesser_link_token) %></p>
+      </div>
     </div>
   </div>
 </main>
