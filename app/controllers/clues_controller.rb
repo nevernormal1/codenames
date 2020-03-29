@@ -4,10 +4,8 @@ class CluesController < ApplicationController
     @board = Board.find_by!(
       giver_link_token: link_token
     )
-    Board.transaction do
-      @board.clues.create!(clue_params)
-      @board.change_turns!
-    end
+
+    @board.clues.create!(clue_params)
 
     redirect_to board_path(id: link_token)
   end

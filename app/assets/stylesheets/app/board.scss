@@ -20,6 +20,10 @@ $red: #f66;
       color: $red;
     }
   }
+
+  form {
+    display: inline;
+  }
 }
 
 #board {
@@ -56,6 +60,19 @@ $red: #f66;
       color: #555;
       text-transform: uppercase;
       text-align: center;
+    }
+  }
+
+  &.guesser {
+    .word-container:not(.guessed):hover {
+      cursor: pointer;
+    }
+
+    &.red .word-container:hover {
+      border: 1px solid $red;
+    }
+    &.blue .word-container:hover {
+      border: 1px solid $blue;
     }
   }
 }

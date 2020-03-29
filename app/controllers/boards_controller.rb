@@ -10,8 +10,10 @@ class BoardsController < ApplicationController
 
     @giver = params[:id] == @board.giver_link_token
     @clue = Clue.new
+    @guess = Guess.new
 
     @clues = @board.recent_clues
+    @last_clue = @board.last_clue
   end
 
   def create

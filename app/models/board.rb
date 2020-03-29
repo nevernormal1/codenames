@@ -10,7 +10,9 @@ class Board < ApplicationRecord
   enum turn: [:blue, :red]
 
   has_many :clues
+  has_many :guesses
   has_many :recent_clues, -> { order(id: :desc).limit(10) }, class_name: "Clue"
+  has_one :last_clue, -> { order(id: :desc) }, class_name: "Clue"
 
   def change_turns!
     if turn == "blue"
@@ -20,6 +22,10 @@ class Board < ApplicationRecord
     end
 
     save!
+  end
+
+  def guessing?
+    turn == self.class.turns.key(last_clue.turn)
   end
 
   private

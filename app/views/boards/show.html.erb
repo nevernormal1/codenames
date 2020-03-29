@@ -1,21 +1,42 @@
 <main>
   <div id="board-header" class="<%= @board.turn %>">
     <h1><%= @board.turn.capitalize %>'s Turn</h1>
-    <% if @giver %>
-      <%= form_for @clue do |f| %>
-        <%= hidden_field :board, :giver_link_token %>
-        <%= f.hidden_field :turn, value: Board.turns[@board.turn] %>
-        <%= f.label :clue %>
-        <%= f.text_field :clue %>
-        <%= f.label :number %>
-        <%= f.text_field :number %>
-        <%= f.submit "Send Clue" %>
+    <% if @board.guessing? %>
+      <div id="current-clue">
+        <h3><%= @last_clue.clue %>: <%= @last_clue.number %></h3>
+        <% if @giver %>
+          <p>Your team is guessing</p>
+        <% else %>
+          <div>
+            Guess by clicking a card or
+            <%= form_for @guess do |f| %>
+              <%= hidden_field :board, :guesser_link_token %>
+              <%= f.hidden_field :turn, value: Board.turns[@board.turn] %>
+              <%= f.hidden_field :guess %>
+              <%= f.submit "Pass" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <% if @giver %>
+        <%= form_for @clue do |f| %>
+          <%= hidden_field :board, :giver_link_token %>
+          <%= f.hidden_field :turn, value: Board.turns[@board.turn] %>
+          <%= f.label :clue %>
+          <%= f.text_field :clue %>
+          <%= f.label :number %>
+          <%= f.text_field :number %>
+          <%= f.submit "Send Clue" %>
+        <% end %>
+      <% else %>
+        <p>Waiting for clue...</p>
       <% end %>
     <% end %>
   </div>
-  <div id="board">
+  <div id="board" class="<%= @board.turn %> <%= @giver ? "giver" : "guesser" %>">
     <% @board.words.each_with_index do |word, index| %>
-      <div class="word-container <%= word_container_class(@board, word, index) if @giver %>">
+      <div class="word-container <%= word_container_guessed_class(@board, word, index) %> <%= word_container_giver_class(@board, word, index) if @giver %>" data-word="<%= word %>">
         <div class="word">
           <%= word %>
         </div>
@@ -27,7 +48,7 @@
     <% if @giver %>
       <div class="clue-giver">
         <p>Give this link to clue <strong>givers</strong>:</p>
-        <p><%= link_to board_url(id: @board.giver_link_token) %></p>
+        <p><%= link_to board_url(id: @board.giver_link_token), board_url(id: @board.giver_link_token) %></p>
       </div>
     <% end %>
     <div id="clues">
@@ -38,7 +59,29 @@
     </div>
     <div class="clue-guesser">
       <p>Give this link to clue <strong>guessers</strong>:</p>
-      <p><%= link_to board_url(id: @board.guesser_link_token) %></p>
+      <p><%= link_to board_url(id: @board.guesser_link_token), board_url(id: @board.guesser_link_token) %></p>
     </div>
   </div>
 </main>
+
+<% content_for :javascript do %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var chooseWord = function(event) {
+        event.preventDefault();
+        var clickedContainer = event.target.closest(".word-container");
+        var word = clickedContainer.dataset.word;
+        var confirm = window.confirm("Guess " + word + "?");
+        if (confirm) {
+          document.querySelector("#guess_guess").value = word;
+          document.querySelector("#new_guess").requestSubmit();
+        }
+      };
+
+      containers = document.getElementsByClassName("word-container")
+      Array.prototype.forEach.call(containers, (container) => {
+        container.addEventListener("click", chooseWord);
+      });
+    });
+  </script>
+<% end %>
