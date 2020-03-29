@@ -1,6 +1,7 @@
 #board {
   display: grid;
-  grid: repeat(5, 60px) / auto-flow 140px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 75px;
   grid-gap: 1em;
 
   .word-container {
