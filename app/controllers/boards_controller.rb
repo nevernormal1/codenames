@@ -13,7 +13,10 @@ class BoardsController < ApplicationController
     @guess = Guess.new
 
     @clues = @board.recent_clues
+    @guesses = @board.recent_guesses
+
     @last_clue = @board.last_clue
+    @last_guess = @board.last_guess
   end
 
   def create

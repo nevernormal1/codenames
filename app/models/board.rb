@@ -12,7 +12,9 @@ class Board < ApplicationRecord
   has_many :clues
   has_many :guesses
   has_many :recent_clues, -> { order(id: :desc).limit(10) }, class_name: "Clue"
+  has_many :recent_guesses, -> { order(id: :desc).limit(10) }, class_name: "Guess"
   has_one :last_clue, -> { order(id: :desc) }, class_name: "Clue"
+  has_one :last_guess, -> { order(id: :desc) }, class_name: "Guess"
 
   def change_turns!
     if turn == "blue"

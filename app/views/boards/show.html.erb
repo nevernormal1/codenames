@@ -57,6 +57,12 @@
         <p class="<%= Board.turns.key(clue.turn) %>"><%= clue.clue %>: <%= clue.number %></p>
       <% end %>
     </div>
+    <div id="guesses">
+      <p>Recent guesses:</p>
+      <% @guesses.each do |guess| %>
+        <p class="<%= Board.turns.key(guess.turn) %>"><%= guess.guess %>: <%= guess.correct? ? "Correct" : "Incorrect" %></p>
+      <% end %>
+    </div>
     <div class="clue-guesser">
       <p>Give this link to clue <strong>guessers</strong>:</p>
       <p><%= link_to board_url(id: @board.guesser_link_token), board_url(id: @board.guesser_link_token) %></p>
