@@ -1,6 +1,16 @@
 <main>
   <div id="board-header">
     <h1><%= @board.turn.capitalize %>'s Turn</h1>
+    <% if @giver %>
+      <%= form_for @clue do |f| %>
+        <%= f.hidden_field :turn, value: Board.turns[@board.turn] %>
+        <%= f.label :clue %>
+        <%= f.text_field :clue %>
+        <%= f.label :number %>
+        <%= f.text_field :number %>
+        <%= f.submit "Send Clue" %>
+      <% end %>
+    <% end %>
   </div>
   <div id="board">
     <% @board.words.each_with_index do |word, index| %>

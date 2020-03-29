@@ -9,6 +9,7 @@ class BoardsController < ApplicationController
     raise ActiveRecord::RecordNotFound unless @board
 
     @giver = params[:id] == @board.giver_link_token
+    @clue = Clue.new
   end
 
   def create

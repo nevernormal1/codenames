@@ -1,6 +1,10 @@
 #board-header {
   color: #555;
   text-align: center;
+  padding: 0em 0em 1em 0em;
+  input[type="submit"] {
+    padding: 4px;
+  }
 }
 #board {
   display: grid;
