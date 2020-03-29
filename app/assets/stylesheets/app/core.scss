@@ -1,3 +1,22 @@
 body {
   font-family: arial, sans-serif;
 }
+
+#welcome {
+  padding: 2em;
+  color: #555;
+  text-align: center;
+  width: 400px;
+  margin: 0 auto;
+}
+button {
+  padding: 2em;
+  border-radius: 6px;
+  background-color: #e3ddbf;
+  border: 1px solid #e3ddbf;
+  font-size: 1em;
+
+  &:hover {
+    background-color: #aea783;;
+  }
+}
