@@ -4,6 +4,10 @@ class CreateBoards < ActiveRecord::Migration[6.0]
       t.string :giver_link_token
       t.string :guesser_link_token
       t.text :words
+      t.integer :assassin
+      t.text :blue
+      t.text :red
+
       t.timestamps
     end
 

@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(version: 2020_03_29_170812) do
     t.string "giver_link_token"
     t.string "guesser_link_token"
     t.text "words"
+    t.integer "assassin"
+    t.text "blue"
+    t.text "red"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["giver_link_token"], name: "index_boards_on_giver_link_token", unique: true

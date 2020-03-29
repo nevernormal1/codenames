@@ -17,7 +17,8 @@ class BoardsController < ApplicationController
     begin
       retries ||= 0
       board = Board.create!
-    rescue
+    rescue => e
+      logger.error e
       retry if (retries += 1) < 3
     end
 

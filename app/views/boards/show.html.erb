@@ -1,7 +1,7 @@
 <main>
   <div id="board">
-    <% @board.words.each do |word| %>
-      <div class="word-container">
+    <% @board.words.each_with_index do |word, index| %>
+      <div class="word-container <%= word_container_class(@board, word, index) if @giver %>">
         <div class="word">
           <%= word %>
         </div>

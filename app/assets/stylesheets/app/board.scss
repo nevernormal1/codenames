@@ -12,6 +12,18 @@
     flex-direction: column;
     justify-content: center;
 
+    &.red {
+      background: #f66;
+    }
+
+    &.blue {
+      background: #66f;
+    }
+
+    &.assassin {
+      background: #111;
+    }
+
     .word {
       border-radius: 4px;
       padding-top: 8px;
