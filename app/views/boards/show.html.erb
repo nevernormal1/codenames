@@ -1,8 +1,10 @@
 <main>
   <div id="board">
     <% @board.words.each do |word| %>
-      <div>
-        <%= word %>
+      <div class="word-container">
+        <div class="word">
+          <%= word %>
+        </div>
       </div>
     <% end %>
   </div>

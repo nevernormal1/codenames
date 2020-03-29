@@ -1,4 +1,24 @@
 #board {
   display: grid;
-  grid: repeat(5, 60px) / auto-flow 80px;
+  grid: repeat(5, 60px) / auto-flow 140px;
+  grid-gap: 1em;
+
+  .word-container {
+    padding: 20px 10px;
+    border-radius: 4px;
+    background: #e3ddbf;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .word {
+      border-radius: 4px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      background: white;
+      color: #555;
+      text-transform: uppercase;
+      text-align: center;
+    }
+  }
 }
