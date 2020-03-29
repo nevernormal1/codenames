@@ -26,6 +26,10 @@ $neutral: #e3ddbf;
   form {
     display: inline;
   }
+
+  button {
+    margin-bottom: 1em;
+  }
 }
 
 #board {
@@ -110,7 +114,7 @@ $neutral: #e3ddbf;
   justify-content: space-between;
 }
 
-#clues {
+#clues, #guesses {
   .blue {
     border-left: 3px solid $blue;
     padding-left: 2px;

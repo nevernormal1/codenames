@@ -31,11 +31,17 @@ class Board < ApplicationRecord
   end
 
   def game_over?
-    last_guess.assassin? || all_clues_guessed?
+    last_guess&.assassin? || all_clues_guessed?
   end
 
   private
   def all_clues_guessed?
+    guess_indices = guesses.pluck(:guess).map do |guess|
+      words.index(guess)
+    end
+
+    (blue & guess_indices).size == blue.size ||
+      (red & guess_indices).size == red.size
   end
 
   def generate_link_tokens

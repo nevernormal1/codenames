@@ -2,6 +2,9 @@
   <div id="board-header" class="<%= @board.turn %>">
     <% if @board.game_over? %>
       <h1>Game Over</h1>
+      <%= form_for Board.new do |f| %>
+        <button type="submit">Start new game</button>
+      <% end %>
     <% else %>
       <h1><%= @board.turn.capitalize %>'s Turn</h1>
       <% if @board.guessing? %>
@@ -58,7 +61,7 @@
     <div id="guesses">
       <p>Recent guesses:</p>
       <% @guesses.each do |guess| %>
-        <p class="<%= Board.turns.key(guess.turn) %>"><%= guess.guess %>: <%= guess.correct? ? "Correct" : "Incorrect" %></p>
+        <p class="<%= Board.turns.key(guess.turn) %>"><%= guess.guess %>: <%= guess.correct? ? "Correct" : (guess.assassin? ? "Assassin" : "Incorrect") %></p>
       <% end %>
     </div>
     <div>
