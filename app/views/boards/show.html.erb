@@ -82,6 +82,9 @@
 <% content_for :javascript do %>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
+      var currentLocation = window.location;
+      var lastUpdatedAt = <%= @board.updated_at.to_i %>;
+
       var chooseWord = function(event) {
         event.preventDefault();
         var clickedContainer = event.target.closest(".word-container");
@@ -102,10 +105,36 @@
         location.reload();
       };
 
+      var handleUpdatedAtResponse = function() {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+          if (httpRequest.status === 200) {
+            var updatedAt = httpRequest.responseText;
+            if (parseInt(updatedAt) > lastUpdatedAt) {
+              reloadBoard();
+            } else {
+              setTimeout(checkBoardUpdatedAt, 3000);
+            }
+          } else {
+            console.log("Error");
+          }
+        }
+      }
+
+      var checkBoardUpdatedAt = function() {
+        httpRequest = new XMLHttpRequest();
+
+        if (!httpRequest) {
+          return false;
+        }
+
+        httpRequest.onreadystatechange = handleUpdatedAtResponse;
+
+        httpRequest.open("GET", "<%= updated_at_board_path(@board, format: :json) %>");
+        httpRequest.send();
+      }
+
       <% unless @board.game_over? %>
-        <% if (@giver && @board.guessing?) || (!@giver && !@board.guessing?) %>
-          setTimeout(reloadBoard, 3000);
-        <% end %>
+        setTimeout(checkBoardUpdatedAt, 3000);
       <% end %>
     });
   </script>

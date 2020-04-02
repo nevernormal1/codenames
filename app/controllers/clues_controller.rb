@@ -5,7 +5,10 @@ class CluesController < ApplicationController
       giver_link_token: link_token
     )
 
-    @board.clues.create!(clue_params)
+    Board.transaction do
+      @board.clues.create!(clue_params)
+      @board.touch
+    end
 
     redirect_to board_path(id: link_token)
   end

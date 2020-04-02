@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :boards do
     member do
-      put :pass
+      get :updated_at
     end
   end
   resources :clues

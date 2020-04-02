@@ -11,6 +11,7 @@ class GuessesController < ApplicationController
     else
       Board.transaction do
         guess.save!
+        @board.touch
         if !guess.correct?
           @board.change_turns!
         end

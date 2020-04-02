@@ -32,4 +32,14 @@ class BoardsController < ApplicationController
 
     redirect_to board_path(id: board.giver_link_token)
   end
+
+  def updated_at
+    respond_to do |format|
+      format.json do
+        @board = Board.find(params[:id])
+
+        render json: @board.updated_at.to_i
+      end
+    end
+  end
 end
