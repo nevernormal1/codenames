@@ -96,10 +96,12 @@
         }
       };
 
-      containers = document.getElementsByClassName("word-container")
-      Array.prototype.forEach.call(containers, (container) => {
-        container.addEventListener("click", chooseWord);
-      });
+      <% if !@giver && @board.guessing? %>
+        containers = document.querySelectorAll(".word-container:not(.guessed)")
+        Array.prototype.forEach.call(containers, (container) => {
+          container.addEventListener("click", chooseWord);
+        });
+      <% end %>
 
       var reloadBoard = function() {
         location.reload();

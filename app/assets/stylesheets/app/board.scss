@@ -99,10 +99,10 @@ $neutral: #e3ddbf;
       cursor: pointer;
     }
 
-    &.red .word-container:hover {
+    &.red .word-container:not(.guessed):hover {
       border: 1px solid $red;
     }
-    &.blue .word-container:hover {
+    &.blue .word-container:not(.guessed):hover {
       border: 1px solid $blue;
     }
   }
