@@ -92,7 +92,7 @@
         var confirm = window.confirm("Guess " + word + "?");
         if (confirm) {
           document.querySelector("#guess_guess").value = word;
-          document.querySelector("#new_guess").requestSubmit();
+          document.querySelector("#new_guess").submit();
         }
       };
 
