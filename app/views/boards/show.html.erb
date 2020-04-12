@@ -1,5 +1,7 @@
 <main>
   <div id="board-header" class="<%= @board.turn %>">
+    <p class="words-remaining red">Words left: <%= @board.red_words_remaining %></p>
+    <p class="words-remaining blue">Words left: <%= @board.blue_words_remaining %></p>
     <% if @board.game_over? %>
       <h1>Game Over</h1>
       <%= form_for Board.new do |f| %>

@@ -34,12 +34,22 @@ class Board < ApplicationRecord
     last_guess&.assassin? || all_clues_guessed?
   end
 
+  def blue_words_remaining
+    blue.size - (blue & guess_indices).size
+  end
+
+  def red_words_remaining
+    red.size - (red & guess_indices).size
+  end
+
   private
-  def all_clues_guessed?
-    guess_indices = guesses.pluck(:guess).map do |guess|
+  def guess_indices
+    @guess_indices ||= guesses.pluck(:guess).map do |guess|
       words.index(guess)
     end
+  end
 
+  def all_clues_guessed?
     (blue & guess_indices).size == blue.size ||
       (red & guess_indices).size == red.size
   end

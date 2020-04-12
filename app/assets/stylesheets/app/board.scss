@@ -30,6 +30,18 @@ $neutral: #e3ddbf;
   button {
     margin-bottom: 1em;
   }
+
+  .words-remaining.red {
+    float: left;
+    border-left: 3px solid $red;
+    padding-left: 2px;
+  }
+
+  .words-remaining.blue {
+    float: right;
+    border-left: 3px solid $blue;
+    padding-left: 2px;
+  }
 }
 
 #board {
